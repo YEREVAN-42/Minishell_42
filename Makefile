@@ -26,9 +26,9 @@ LIB			= ./libs
 
 LIBFT		= $(LIB)/libft
 
-LINKERS		= -lft -L$(LIBFT) -lreadline -L./Xach/lib -lreadline
+LINKERS		= -lft -L$(LIBFT)
 
-INCLUDES	= -I ./includes -I./Xach/include
+INCLUDES	= -I ./includes
 
 RM			= rm -rf
 
