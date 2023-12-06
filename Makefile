@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: khovakim <khovakim@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/10 19:12:28 by khovakim          #+#    #+#              #
-#    Updated: 2023/01/24 12:07:07 by khovakim         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME		= minishell
 
 TMP			= tmp
@@ -26,9 +14,15 @@ LIB			= ./libs
 
 LIBFT		= $(LIB)/libft
 
-LINKERS		= -lft -L$(LIBFT)
+UNIX_NAME	= $(shell uname -s)
 
-INCLUDES	= -I ./includes
+ifeq ($(UNIX_NAME),Darwin)
+LINKERS		= -lft -L$(LIBFT) -lreadline -L $(HOME)/readline/lib
+else ifeq ($(UNIX_NAME),Linux)
+LINKERS		= -lft -L$(LIBFT) -lreadline -ltinfo -L $(HOME)/readline/lib
+endif
+
+INCLUDES	= -I ./includes -I $(HOME)/readline/include
 
 RM			= rm -rf
 
@@ -40,19 +34,18 @@ RM			= rm -rf
 all:		$(NAME)
 
 $(TMP):
-			mkdir $(TMP)
+			@mkdir $(TMP)
 
-$(NAME):	$(TMP) $(OBJS) 
-			$(MAKE) -C $(LIBFT) all
+$(NAME):	$(TMP) $(OBJS)
+			@$(MAKE) -C $(LIBFT) all
 			$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LINKERS) -o $(NAME)
 
 clean:
-			$(MAKE) -C $(LIBFT) clean
-			$(RM) $(TMP)
+			@$(MAKE) -C $(LIBFT) clean
+			@$(RM) $(TMP)
 
 fclean:		clean
-			$(MAKE) -C $(LIBFT) fclean
-			$(RM) $(NAME)
+			@$(MAKE) -C $(LIBFT) fclean
+			@$(RM) $(NAME)
 
 re:			fclean all
-

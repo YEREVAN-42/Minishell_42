@@ -13,7 +13,7 @@ INCLUDES	= -I../../includes
 RM			= rm -f
 
 .c.o:
-			@${CC} ${CFLAGS} $(INCLUDES) -c $< -o ${<:.c=.o}
+			${CC} ${CFLAGS} $(INCLUDES) -c $< -o ${<:.c=.o}
 
 all:		$(NAME)
 

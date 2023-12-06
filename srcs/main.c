@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-static void	log(void)
+static void	Log(void)
 {
-	printf("\033[0;34m");
+	printf("\033[1m\033[34m");
 	printf("\n\n              __          __          __");
 	printf("                __ __      __    __  ______  \n");
 	printf("             |  \\        |  \\        |  \\   ");
@@ -58,7 +58,7 @@ static int	start(int argc, char **argv, char **envp, t_var **env_lst)
 		ft_putstr_fd("The program no needs any argument\n", 2);
 		return (1);
 	}
-	log();
+	Log();
 	signals_init();
 	env_to_list(envp, env_lst);
 	shlvl(env_lst);
